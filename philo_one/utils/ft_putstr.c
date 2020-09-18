@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/10/14 17:09:33 by mli               #+#    #+#             */
+/*   Updated: 2020/01/28 10:47:53 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "libft.h"
 
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+void	ft_putstr(char *s)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	if (s)
+		write(1, s, ft_strlen(s));
 }

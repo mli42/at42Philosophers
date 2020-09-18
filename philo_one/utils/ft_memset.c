@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/10/07 12:04:54 by mli               #+#    #+#             */
+/*   Updated: 2019/10/08 16:09:37 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "libft.h"
 
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	struct timeval	tv;
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	src;
 
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	i = 0;
+	dest = (unsigned char *)b;
+	src = (unsigned char)c;
+	while (i < len)
+		dest[i++] = src;
+	return (b);
 }

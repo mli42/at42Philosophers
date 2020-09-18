@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/10/16 09:19:41 by mli               #+#    #+#             */
+/*   Updated: 2019/10/18 11:51:36 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "libft.h"
 
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	if (lst)
+	{
+		if (del)
+			del(lst->content);
+		free(lst);
+	}
 }

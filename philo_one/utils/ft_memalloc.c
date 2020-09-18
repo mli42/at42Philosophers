@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/12/10 12:00:03 by mli               #+#    #+#             */
+/*   Updated: 2020/01/01 23:28:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "libft.h"
 
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+void	*ft_memalloc(size_t size)
 {
-	struct timeval	tv;
+	void *result;
 
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	if (!(result = malloc(size)))
+		return (NULL);
+	ft_memset(result, 0, size);
+	return (result);
 }

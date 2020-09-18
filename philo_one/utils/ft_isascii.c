@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/10/09 16:08:00 by mli               #+#    #+#             */
+/*   Updated: 2019/10/09 16:09:16 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
-
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+int		ft_isascii(int c)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2019/10/11 11:27:59 by mli               #+#    #+#             */
+/*   Updated: 2019/10/11 15:23:01 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "libft.h"
 
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+char	*ft_strdup(const char *s1)
 {
-	struct timeval	tv;
+	char	*newcpy;
+	size_t	src_len;
 
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+	src_len = ft_strlen(s1);
+	if ((newcpy = (char *)ft_calloc(src_len + 1, sizeof(*newcpy))) == NULL)
+		return (NULL);
+	return (ft_memcpy(newcpy, s1, src_len));
 }

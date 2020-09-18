@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:31:29 by mli              ###   ########.fr       */
+/*   Created: 2020/03/17 16:54:27 by mli               #+#    #+#             */
+/*   Updated: 2020/03/17 16:57:01 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
-
-/*
-** Returns time in milliseconds
-*/
-
-double		ft_gettime(void)
+double		ft_abs_lf(double nbr)
 {
-	struct timeval	tv;
+	return ((nbr >= 0 ? nbr : -nbr));
+}
 
-	gettimeofday(&tv, NULL);
-	return ((double)(tv.tv_sec * 1000) + ((double)tv.tv_usec / 1000));
+long int	ft_abs_ld(long int nb)
+{
+	return ((nb >= 0 ? nb : -nb));
 }

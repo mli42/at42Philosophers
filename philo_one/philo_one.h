@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/16 16:59:05 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/18 12:40:51 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 # include <unistd.h>
 # include <stdio.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 
 # include <pthread.h>
 # include <sys/time.h>
 
-enum			ph_activity
+# include "./utils/libft.h"
+
+enum			e_ph_activity
 {
 	e_DIE,
 	e_EAT,
@@ -39,7 +40,7 @@ typedef struct	s_phinfo
 
 typedef struct	s_fork
 {
-	bool	taken;
+	int	taken : 8;
 }				t_fork;
 
 typedef struct	s_philo
@@ -58,8 +59,5 @@ typedef struct	s_hub
 int				ft_hubinit(t_hub *hub, int argc, char **argv);
 int				ft_exit(t_hub *hub, const char *error);
 double			ft_gettime(void);
-int				ft_strlen(const char * const str);
-void			ft_putstr_fd(const char * const str, const int fd);
-void			ft_putendl_fd(const char * const str, const int fd);
 
 #endif
