@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/18 12:06:51 by mli               #+#    #+#              #
-#    Updated: 2020/09/18 12:22:42 by mli              ###   ########.fr        #
+#    Updated: 2020/09/18 14:19:49 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LIBFT_SRCS = ft_memset.c ft_bzero.c ft_strlen.c ft_toupper.c ft_tolower.c \
 			 ft_lstnew.c ft_lstadd_front.c ft_lstlast.c ft_lstadd_back.c \
 			 ft_lstsize.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 			 ft_strcmp.c ft_memalloc.c ft_free.c ft_atoi_ptr.c ft_nbrlen.c \
-			 ft_abs.c ft_itoa_lbase.c
+			 ft_abs.c ft_itoa_lbase.c ft_atoi_isdigit.c
 
 SRCS_FILES = ${addprefix ${LIBFT_PATH}, ${LIBFT_SRCS}}
 

@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/16 16:50:42 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/18 15:06:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int		ft_hubinit(t_hub *hub, int argc, char **argv)
 	memset(hub, 0, sizeof(*hub));
 	if (argc != 5 && argc != 6)
 		return (ft_exit(hub, "Takes 4 or 5 parameters"));
+	if (!ft_parser(&hub->phinfo, argv))
+		return (ft_exit(hub, "At least one parameter is not a natural integer"));
 	if ((hub->start_time = ft_gettime()) == -1)
 		return (ft_exit(hub, "Cannot get time"));
-	(void)argv;
 	return (1);
 }
 

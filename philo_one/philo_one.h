@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:40:51 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/18 14:14:22 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ typedef struct	s_hub
 int				ft_hubinit(t_hub *hub, int argc, char **argv);
 int				ft_exit(t_hub *hub, const char *error);
 double			ft_gettime(void);
+int				ft_parser(t_phinfo *phinfo, char **argv);
 
 #endif

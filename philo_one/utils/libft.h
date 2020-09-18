@@ -6,7 +6,7 @@
 /*   By: mli <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:34:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 12:41:15 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/18 14:18:57 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ char			*ft_itoa_lbase(const char *base, long int nbr);
 
 double			ft_abs_lf(double nbr);
 long int		ft_abs_ld(long int nb);
+
+int				ft_atoi_isdigit(const char *str, int *nbr);
 
 #endif
