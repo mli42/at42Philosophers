@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/18 14:14:22 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/18 16:41:19 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct	s_phinfo
 
 typedef struct	s_fork
 {
-	int	taken : 8;
+	int		taken : 8;
 }				t_fork;
 
 typedef struct	s_philo
@@ -60,5 +60,10 @@ int				ft_hubinit(t_hub *hub, int argc, char **argv);
 int				ft_exit(t_hub *hub, const char *error);
 double			ft_gettime(void);
 int				ft_parser(t_phinfo *phinfo, char **argv);
+
+void			ft_destroy_hub(t_hub *hub);
+void			ft_destroy_philo(t_philo **philos);
+
+void			ft_linkforks(t_philo *philos, int nbphilo);
 
 #endif
