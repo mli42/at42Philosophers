@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/20 18:11:19 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/20 23:22:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <sys/time.h>
 
 # include "./utils/libft.h"
-
-int				g_stop;
 
 enum			e_ph_activity
 {
@@ -57,30 +55,38 @@ typedef struct	s_fork
 
 typedef struct	s_philo
 {
-	t_fork			my_fork;
-	t_fork			*neighbours_fork;
-	int				index;
-	unsigned int	eaten_meals;
+	t_fork				my_fork;
+	t_fork				*neighbours_fork;
+	int					index;
+	unsigned short int	eaten_meals;
+	unsigned long int	last_meal;
 }				t_philo;
 
 typedef struct	s_hub
 {
-	t_phinfo	phinfo;
-	double		start_time;
-	t_philo		*philos;
+	t_phinfo			phinfo;
+	unsigned long int	start_time;
 }				t_hub;
 
-int				ft_hubinit(t_hub *hub, char **argv);
-int				ft_exit(t_hub *hub, const char *error);
-double			ft_gettime(void);
+/*
+** Global variables:
+*/
+
+int				g_stop;
+t_hub			g_hub;
+
+int				ft_hubinit(char **argv);
+int				ft_exit(t_philo **philos, const char *error);
 int				ft_parser(t_phinfo *phinfo, char **argv);
 
-void			ft_destroy_hub(t_hub *hub);
-void			ft_destroy_philo(t_philo **philos);
+void			ft_destructor(t_philo **philos);
 
 void			ft_philoinit(t_philo *philos, int nbphilo);
 
 void			ft_logs(unsigned const long int timestamp,
 		unsigned short int philosnb, unsigned short int const state);
+
+unsigned long	ft_gettime(void);
+void			dosleep(unsigned long int ms);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 16:56:04 by mli               #+#    #+#             */
-/*   Updated: 2020/09/20 18:23:49 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/20 23:25:00 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static void	ft_itostr(unsigned long int nbr, char **str)
 	*str += tmp;
 }
 
-void	ft_logs(unsigned const long int timestamp,
-			unsigned short int philosnb, unsigned short int const state)
+void		ft_logs(unsigned const long int timestamp,
+		unsigned short int philosnb, unsigned short int const state)
 {
 	char		log[128];
 	char		*tmp;

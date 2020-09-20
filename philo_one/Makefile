@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 14:22:00 by mli               #+#    #+#              #
-#    Updated: 2020/09/20 17:51:51 by mli              ###   ########.fr        #
+#    Updated: 2020/09/20 19:29:10 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME = philo_one
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS_FILES = main.c utils.c parser.c destroy.c logs.c
+SRCS_FILES = main.c utils.c parser.c destroy.c logs.c time.c
 
 OBJS_PATH = ./obj/
 OBJS = ${addprefix ${OBJS_PATH}, ${SRCS_FILES:.c=.o}}
