@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/20 23:22:23 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/21 11:04:36 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct	s_phinfo
 
 typedef struct	s_fork
 {
-	int		taken : 8;
+	pthread_mutex_t	lock;
+	int				taken : 8;
 }				t_fork;
 
 typedef struct	s_philo
@@ -75,7 +76,7 @@ typedef struct	s_hub
 int				g_stop;
 t_hub			g_hub;
 
-int				ft_hubinit(char **argv);
+int				ft_initialization(t_philo **philos, char **argv);
 int				ft_exit(t_philo **philos, const char *error);
 int				ft_parser(t_phinfo *phinfo, char **argv);
 

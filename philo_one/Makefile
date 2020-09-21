@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 14:22:00 by mli               #+#    #+#              #
-#    Updated: 2020/09/20 19:29:10 by mli              ###   ########.fr        #
+#    Updated: 2020/09/21 10:31:57 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ NAME = philo_one
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS_FILES = main.c utils.c parser.c destroy.c logs.c time.c
+SRCS_FILES = main.c utils.c parser.c destroy.c logs.c time.c philosopher.c
+
+HEADER_FILES = philo_one.h
 
 OBJS_PATH = ./obj/
 OBJS = ${addprefix ${OBJS_PATH}, ${SRCS_FILES:.c=.o}}
@@ -30,18 +32,18 @@ OBJS = ${addprefix ${OBJS_PATH}, ${SRCS_FILES:.c=.o}}
 LIBFT_PATH = ./utils
 LIBFT_A = ${LIBFT_PATH}/libft.a
 
-all: ${LIBFT_A}
+all: ${LIBFT_A} ${HEADER_FILES}
 	@printf "$(BOLD)Make $(NAME)$(EOC) : "
 	@make ${NAME}
 
-$(NAME): ${OBJS_PATH} ${OBJS}
+$(NAME): ${OBJS_PATH} ${OBJS} ${HEADER_FILES}
 	@echo ""
 	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_A}
 
 ${OBJS_PATH}:
 	@mkdir -p $@
 
-${OBJS_PATH}%.o: %.c
+${OBJS_PATH}%.o: %.c ${HEADER_FILES}
 	@${CC} ${CFLAGS} -c $< -o $@
 	@printf "$(YELLOW)▓$(EOC)"
 

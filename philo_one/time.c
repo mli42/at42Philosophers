@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:58:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/20 19:28:28 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/21 11:32:08 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ unsigned long int	ft_gettime(void)
 {
 	struct timeval	tp;
 
-	gettimeofday(&tp, NULL);
+	if (gettimeofday(&tp, NULL) == -1)
+		return (0);
 	return ((tp.tv_sec * 1000) + (tp.tv_usec / 1000));
 }
 
