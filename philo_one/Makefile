@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 14:22:00 by mli               #+#    #+#              #
-#    Updated: 2020/09/21 10:31:57 by mli              ###   ########.fr        #
+#    Updated: 2020/09/21 13:31:01 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ NAME = philo_one
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
+
+ifeq ($(argv), debug)
+	CFLAGS += -fsanitize=address -g3
+endif
 
 SRCS_FILES = main.c utils.c parser.c destroy.c logs.c time.c philosopher.c
 

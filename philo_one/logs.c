@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 16:56:04 by mli               #+#    #+#             */
-/*   Updated: 2020/09/20 23:25:00 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/21 15:07:00 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,10 @@ static void	ft_itostr(unsigned long int nbr, char **str)
 {
 	int			tmp;
 	int			nbrsize;
-	const int	begin = ((int)nbr >= 0 ? 0 : 1);
 
 	nbrsize = ft_nbrlen(nbr);
 	tmp = nbrsize;
-	if ((int)nbr < 0)
-	{
-		nbr *= -1;
-		*(*str) = '-';
-	}
-	while (--nbrsize >= begin)
+	while (--nbrsize >= 0)
 	{
 		(*str)[nbrsize] = (nbr % 10) + '0';
 		nbr /= 10;
@@ -49,7 +43,9 @@ void		ft_logs(unsigned const long int timestamp,
 		"is thinking", "died"};
 
 	tmp = log;
+	*(tmp++) = '[';
 	ft_itostr(timestamp, &tmp);
+	*(tmp++) = ']';
 	*(tmp++) = ' ';
 	ft_itostr(philosnb, &tmp);
 	*(tmp++) = ' ';

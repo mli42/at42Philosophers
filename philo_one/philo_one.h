@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/21 11:04:36 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/21 12:13:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct	s_fork
 
 typedef struct	s_philo
 {
+	pthread_t			thread;
 	t_fork				my_fork;
 	t_fork				*neighbours_fork;
 	int					index;
@@ -73,7 +74,7 @@ typedef struct	s_hub
 ** Global variables:
 */
 
-int				g_stop;
+int	volatile	g_stop;
 t_hub			g_hub;
 
 int				ft_initialization(t_philo **philos, char **argv);
@@ -89,5 +90,7 @@ void			ft_logs(unsigned const long int timestamp,
 
 unsigned long	ft_gettime(void);
 void			dosleep(unsigned long int ms);
+
+void			*ft_philo(void *arg);
 
 #endif

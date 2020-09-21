@@ -6,11 +6,11 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 14:45:12 by mli               #+#    #+#             */
-/*   Updated: 2020/03/14 16:04:46 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/21 15:12:47 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_nbrlen_base(long int nb, int base_len)
+int		ft_nbrlen_base(long unsigned int nb, unsigned int base_len)
 {
 	int size;
 
@@ -25,7 +25,7 @@ int		ft_nbrlen_base(long int nb, int base_len)
 	return (size);
 }
 
-int		ft_nbrlen(long int nb)
+int		ft_nbrlen(long unsigned int nb)
 {
 	return (ft_nbrlen_base(nb, 10));
 }
