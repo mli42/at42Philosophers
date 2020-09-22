@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:34:03 by mli               #+#    #+#             */
-/*   Updated: 2020/09/21 16:03:31 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 10:29:16 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 extern int volatile	g_stop;
 extern t_hub		g_hub;
 
-static int	can_eat(t_philo const *const philo)
-{
-	if (philo->my_fork.taken || philo->neighbours_fork->taken)
-		return (0);
-	return (1);
-}
-
 static void	lockforks(t_philo *const philo)
 {
-	pthread_mutex_lock(&philo->my_fork.lock);
-	ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_TAKING_FORK);
+	const short int odd = (philo->index % 2);
+
+	if (odd)
+	{
+		pthread_mutex_lock(&philo->my_fork.lock);
+		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_TAKING_FORK);
+	}
 	pthread_mutex_lock(&philo->neighbours_fork->lock);
 	ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_TAKING_FORK);
+	if (!odd)
+	{
+		pthread_mutex_lock(&philo->my_fork.lock);
+		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_TAKING_FORK);
+	}
 }
 
 static void	unlockforks(t_philo *const philo)
@@ -43,8 +46,6 @@ void		*ft_philo(void *arg)
 	philo = (t_philo *)arg;
 	while (g_stop != g_hub.phinfo.nbphilo)
 	{
-		while (!can_eat(philo))
-			;
 		lockforks(philo);
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_EATING);
 		philo->eaten_meals++;

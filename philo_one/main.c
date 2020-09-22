@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/21 15:55:22 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 10:29:33 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,11 @@ int		ft_initialization(t_philo **philos, char **argv)
 
 void	ft_startphilos(t_philo *philos)
 {
-	int			i;
+	int		i;
 
 	i = -1;
 	while (++i < g_hub.phinfo.nbphilo)
-		if (i % 2)
-			pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
-	usleep(10);
-	i = -1;
-	while (++i < g_hub.phinfo.nbphilo)
-		if (!(i % 2))
-			pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
+		pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
 }
 
 int		main(int argc, char **argv)
