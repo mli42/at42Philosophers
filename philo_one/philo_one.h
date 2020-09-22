@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/21 12:13:38 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 11:27:09 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct	s_hub
 {
 	t_phinfo			phinfo;
 	unsigned long int	start_time;
+	pthread_mutex_t		stoplock;
 }				t_hub;
 
 /*
@@ -83,8 +84,6 @@ int				ft_parser(t_phinfo *phinfo, char **argv);
 
 void			ft_destructor(t_philo **philos);
 
-void			ft_philoinit(t_philo *philos, int nbphilo);
-
 void			ft_logs(unsigned const long int timestamp,
 		unsigned short int philosnb, unsigned short int const state);
 
@@ -92,5 +91,9 @@ unsigned long	ft_gettime(void);
 void			dosleep(unsigned long int ms);
 
 void			*ft_philo(void *arg);
+
+short int		getstop(void);
+void			incstop(void);
+void			setstop(void);
 
 #endif

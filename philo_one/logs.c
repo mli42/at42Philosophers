@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 16:56:04 by mli               #+#    #+#             */
-/*   Updated: 2020/09/21 15:07:00 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 11:36:32 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void		ft_logs(unsigned const long int timestamp,
 	const char	*strstates[] = {"has taken a fork", "is eating", "is sleeping",
 		"is thinking", "died"};
 
+	if (getstop())
+		return ;
 	tmp = log;
 	*(tmp++) = '[';
 	ft_itostr(timestamp, &tmp);

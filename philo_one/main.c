@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 10:29:33 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 11:38:58 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern t_hub		g_hub;
 extern int volatile	g_stop;
 
-void	waitphilos(t_philo *philos)
+static void	waitphilos(t_philo *philos)
 {
 	int i;
 
@@ -24,38 +24,7 @@ void	waitphilos(t_philo *philos)
 		pthread_join(philos[i].thread, NULL);
 }
 
-void	ft_philoinit(t_philo *philos, int const nbphilo)
-{
-	int i;
-
-	i = -1;
-	while (++i < nbphilo - 1)
-		philos[i].neighbours_fork = &philos[i + 1].my_fork;
-	philos[i].neighbours_fork = &philos[0].my_fork;
-	i = -1;
-	while (++i < nbphilo)
-	{
-		philos[i].index = i + 1;
-		pthread_mutex_init(&philos[i].my_fork.lock, NULL);
-	}
-}
-
-int		ft_initialization(t_philo **philos, char **argv)
-{
-	memset(&g_hub, 0, sizeof(g_hub));
-	if (!ft_parser(&g_hub.phinfo, argv))
-		return (ft_exit(NULL, "At least one parameter is not natural integer"));
-	if (g_hub.phinfo.nbphilo == 1)
-		return (ft_exit(NULL, "Too few amount of philosophers"));
-	if (!(*philos = ft_memalloc(sizeof(t_philo) * g_hub.phinfo.nbphilo)))
-		return (ft_exit(NULL, "Cannot allocate memory"));
-	ft_philoinit(*philos, g_hub.phinfo.nbphilo);
-	if ((g_hub.start_time = ft_gettime()) == 0)
-		return (ft_exit(philos, "Cannot get time"));
-	return (1);
-}
-
-void	ft_startphilos(t_philo *philos)
+static void	ft_startphilos(t_philo *philos)
 {
 	int		i;
 
@@ -64,7 +33,22 @@ void	ft_startphilos(t_philo *philos)
 		pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
 }
 
-int		main(int argc, char **argv)
+static void	supervisord(t_philo *philos)
+{
+	int						i;
+	const unsigned long int	time_to_die = g_hub.phinfo.time_to[e_DIE];
+
+	i = -1;
+	while (++i < g_hub.phinfo.nbphilo)
+		if (philos[i].last_meal != 0 &&
+				ft_gettime() - philos[i].last_meal >= time_to_die)
+		{
+			ft_logs(ft_gettime() - g_hub.start_time, philos[i].index, e_DYING);
+			setstop();
+		}
+}
+
+int			main(int argc, char **argv)
 {
 	t_philo		*philos;
 
@@ -74,10 +58,9 @@ int		main(int argc, char **argv)
 	if (!ft_initialization(&philos, argv))
 		return (0);
 	ft_startphilos(philos);
-	while (g_stop != g_hub.phinfo.nbphilo)
-		;
+	while (!getstop())
+		supervisord(philos);
 	waitphilos(philos);
-	ft_putendl_fd("SUCCEED", 1);
 	ft_destructor(&philos);
 	return (0);
 }

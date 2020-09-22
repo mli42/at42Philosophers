@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:34:03 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 10:29:16 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 12:14:00 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,18 @@ static void	unlockforks(t_philo *const philo)
 
 void		*ft_philo(void *arg)
 {
-	t_philo *philo;
+	t_philo		*philo;
+	const int	must_eat = g_hub.phinfo.must_eat;
 
 	philo = (t_philo *)arg;
-	while (g_stop != g_hub.phinfo.nbphilo)
+	while (!getstop())
 	{
 		lockforks(philo);
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_EATING);
-		philo->eaten_meals++;
-		if (philo->eaten_meals == g_hub.phinfo.must_eat)
-			g_stop++;
+		if (!must_eat && philo->eaten_meals != must_eat)
+			philo->eaten_meals++;
+		if (must_eat != 0 && philo->eaten_meals == must_eat)
+			incstop();
 		philo->last_meal = ft_gettime();
 		dosleep(g_hub.phinfo.time_to[e_EAT]);
 		unlockforks(philo);
