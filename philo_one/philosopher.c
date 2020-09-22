@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:34:03 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 15:19:07 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 16:46:05 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ static void	lockforks(t_philo *const philo)
 	}
 }
 
-static int	unlockforks(t_philo *const philo)
+static void	unlockforks(t_philo *const philo)
 {
 	pthread_mutex_unlock(&philo->my_fork.lock);
 	pthread_mutex_unlock(&philo->neighbours_fork->lock);
-	return (1);
 }
 
 static void	ft_must_eat(t_philo *philo, const int must_eat)
@@ -55,22 +54,15 @@ void		*ft_philo(void *arg)
 	while (!getstop())
 	{
 		lockforks(philo);
-		if (getstop() && unlockforks(philo))
-			break ;
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_EATING);
 		if (must_eat != 0 && philo->eaten_meals != must_eat)
 			ft_must_eat(philo, must_eat);
 		philo->last_meal = ft_gettime();
 		dosleep(g_hub.phinfo.time_to[e_EAT]);
 		unlockforks(philo);
-		if (getstop())
-			break ;
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_SLEEPING);
 		dosleep(g_hub.phinfo.time_to[e_SLEEP]);
-		if (getstop())
-			break ;
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_THINKING);
-		usleep(100);
 	}
 	return (NULL);
 }

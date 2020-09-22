@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 15:22:13 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 16:34:55 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ static void	supervisord(t_philo *philos)
 	i = -1;
 	while (++i < g_hub.phinfo.nbphilo)
 		if (philos[i].last_meal != 0 &&
-				ft_gettime() - philos[i].last_meal >= time_to_die)
+				ft_gettime() - philos[i].last_meal > time_to_die)
 		{
 			ft_logs(ft_gettime() - g_hub.start_time, philos[i].index, e_DYING);
 			setstop();
+			break ;
 		}
 	usleep(500);
 }
