@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/16 14:22:00 by mli               #+#    #+#              #
-#    Updated: 2020/09/22 11:16:49 by mli              ###   ########.fr        #
+#    Updated: 2020/09/22 15:47:00 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ YELLOW = \033[33m
 NAME = philo_one
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 ifeq ($(argv), debug)
 	CFLAGS += -fsanitize=address -g3
