@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 11:38:58 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/22 15:22:13 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ static void	ft_startphilos(t_philo *philos)
 
 	i = -1;
 	while (++i < g_hub.phinfo.nbphilo)
-		pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
+		if (!(i % 2))
+			pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
+	usleep(1000);
+	i = -1;
+	while (++i < g_hub.phinfo.nbphilo)
+		if (i % 2)
+			pthread_create(&philos[i].thread, NULL, ft_philo, &philos[i]);
 }
 
 static void	supervisord(t_philo *philos)
@@ -46,6 +52,7 @@ static void	supervisord(t_philo *philos)
 			ft_logs(ft_gettime() - g_hub.start_time, philos[i].index, e_DYING);
 			setstop();
 		}
+	usleep(500);
 }
 
 int			main(int argc, char **argv)
