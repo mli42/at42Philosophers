@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 15:35:32 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 14:21:51 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/23 14:45:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void			ft_destructor(t_philo **philos)
 		return ;
 	if (g_hub.forks && g_hub.forks != SEM_FAILED)
 		sem_close(g_hub.forks);
-	pthread_mutex_destroy(&g_hub.stoplock);
+	if (g_hub.stoplock && g_hub.stoplock != SEM_FAILED)
+		sem_close(g_hub.stoplock);
 	ft_free((void **)philos);
 }
 

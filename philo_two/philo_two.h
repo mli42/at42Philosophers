@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 14:14:54 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/23 14:44:42 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/sem.h>
 
 # define FORK_SEM "philo_forks"
+# define PH_STOP_SEM "philo_stop"
 
 enum			e_ph_activity
 {
@@ -63,7 +64,7 @@ typedef struct	s_hub
 {
 	t_phinfo			phinfo;
 	unsigned long int	start_time;
-	pthread_mutex_t		stoplock;
+	sem_t				*stoplock;
 	sem_t				*forks;
 }				t_hub;
 

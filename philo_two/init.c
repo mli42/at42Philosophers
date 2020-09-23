@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:11:33 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 14:26:54 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/23 15:28:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	ft_philoinit(t_philo *philos, int const nbphilo)
 	i = -1;
 	while (++i < nbphilo)
 		philos[i].index = i + 1;
-	pthread_mutex_init(&g_hub.stoplock, NULL);
 }
 
 int			ft_initialization(t_philo **philos, char **argv)
@@ -55,7 +54,11 @@ int			ft_initialization(t_philo **philos, char **argv)
 	sem_unlink(FORK_SEM);
 	if ((g_hub.forks = sem_open(FORK_SEM, IPC_CREAT, \
 					0660, g_hub.phinfo.nbphilo)) == SEM_FAILED)
-		return (ft_exit(philos, "Cannot create semaphore"));
+		return (ft_exit(philos, "Cannot create semaphore (forks)"));
+	sem_unlink(PH_STOP_SEM);
+	if ((g_hub.stoplock = sem_open(PH_STOP_SEM, IPC_CREAT, \
+					0660, 1)) == SEM_FAILED)
+		return (ft_exit(philos, "Cannot create semaphore (stoplock)"));
 	if ((g_hub.start_time = ft_gettime()) == 0)
 		return (ft_exit(philos, "Cannot get time"));
 	return (1);
