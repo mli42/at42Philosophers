@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:38:41 by mli               #+#    #+#             */
-/*   Updated: 2020/09/22 11:27:09 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/23 10:53:14 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 
 # include <pthread.h>
 # include <sys/time.h>
-
-# include "./utils/libft.h"
 
 enum			e_ph_activity
 {
@@ -95,5 +93,24 @@ void			*ft_philo(void *arg);
 short int		getstop(void);
 void			incstop(void);
 void			setstop(void);
+
+/*
+** Utils functions:
+*/
+
+void			*ft_memalloc(size_t size);
+size_t			ft_strlen(const char *const str);
+
+int				ft_isdigit(int c);
+
+void			ft_putstr_fd(const char *const str, const int fd);
+void			ft_putendl_fd(const char *const str, const int fd);
+
+void			ft_free(void **ptr);
+int				ft_nbrlen_base(long unsigned int nb,
+		unsigned long int const base_len);
+int				ft_nbrlen(long unsigned int nb);
+
+int				ft_atoi_isdigit(const char *str, int *nbr);
 
 #endif
