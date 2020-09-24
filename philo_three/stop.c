@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 11:16:50 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 16:08:01 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/25 00:36:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ short int	getstop(void)
 {
 	short int dostop;
 
-	sem_wait(g_hub.stoplock);
 	dostop = (g_stop >= g_hub.phinfo.nbphilo ? 1 : 0);
-	sem_post(g_hub.stoplock);
 	if (dostop)
 		setstop();
 	return (dostop);
@@ -30,15 +28,10 @@ short int	getstop(void)
 
 void		incstop(void)
 {
-	sem_wait(g_hub.stoplock);
-	g_stop++;
-	sem_post(g_hub.stoplock);
+	sem_post(g_hub.mealstop);
 }
 
 void		setstop(void)
 {
-	sem_wait(g_hub.stoplock);
-	g_stop = g_hub.phinfo.nbphilo;
-	sem_post(g_hub.stoplock);
 	sem_post(g_semstop);
 }

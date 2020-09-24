@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:11:33 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 16:49:20 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/24 23:12:56 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static int	init_sems(t_philo **philos)
 {
 	if (!init_one_sem(&g_hub.forks, FORK_SEM, g_hub.phinfo.nbphilo))
 		return (ft_exit(philos, "Cannot create semaphore (forks)"));
-	if (!init_one_sem(&g_hub.stoplock, PH_STOP_SEM, 1))
-		return (ft_exit(philos, "Cannot create semaphore (stoplock)"));
+	if (!init_one_sem(&g_hub.mealstop, PH_MEALS_SEM, 0))
+		return (ft_exit(philos, "Cannot create semaphore (mealstop)"));
 	if (!init_one_sem(&g_semstop, PH_SEMSTOP, 0))
 		return (ft_exit(philos, "Cannot create semaphore (semstop)"));
 	if (!init_one_sem(&g_hub.someone_died, "ph_someone_died", 1))

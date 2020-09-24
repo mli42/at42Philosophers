@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:34:03 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 16:07:05 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/25 00:30:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ static void	unlockforks(void)
 {
 	sem_post(g_hub.forks);
 	sem_post(g_hub.forks);
-}
-
-static void	ft_must_eat(t_philo *philo, const int must_eat)
-{
-	if (++philo->eaten_meals == must_eat)
-		incstop();
 }
 
 static void	*supervisord(void *arg)
@@ -67,7 +61,8 @@ void		*ft_philo(void *arg)
 		lockforks(philo);
 		ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_EATING);
 		if (must_eat != 0 && philo->eaten_meals != must_eat)
-			ft_must_eat(philo, must_eat);
+			if (++philo->eaten_meals == must_eat)
+				incstop();
 		philo->last_meal = ft_gettime();
 		dosleep(g_hub.phinfo.time_to[e_EAT]);
 		unlockforks();

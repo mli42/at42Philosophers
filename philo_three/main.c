@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 16:49:23 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/25 00:34:52 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,25 @@ static void	waitphilos(t_philo *philos)
 		kill(philos[i].pid, SIGQUIT);
 }
 
+static void	*philo_ate_enough(void *arg)
+{
+	int i;
+
+	i = g_hub.phinfo.must_eat;
+	while (--i)
+		sem_wait(g_hub.mealstop);
+	setstop();
+	return (arg);
+}
+
 static void	ft_startphilos(t_philo *philos)
 {
-	int		i;
+	int			i;
+	pthread_t	thread;
 
 	i = 0;
+	if (g_hub.phinfo.must_eat != 0)
+		pthread_create(&thread, NULL, philo_ate_enough, NULL);
 	while (i < g_hub.phinfo.nbphilo)
 	{
 		if ((philos[i].pid = fork()) == 0)

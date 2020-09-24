@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 17:05:48 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 16:27:03 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/24 23:12:24 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <signal.h>
 
 # define FORK_SEM "philo_forks"
-# define PH_STOP_SEM "philo_stop"
+# define PH_MEALS_SEM "philo_meals_stop"
 # define PH_SEMSTOP "philo_semstop"
 
 enum			e_ph_activity
@@ -67,7 +67,7 @@ typedef struct	s_hub
 {
 	t_phinfo			phinfo;
 	unsigned long int	start_time;
-	sem_t				*stoplock;
+	sem_t				*mealstop;
 	sem_t				*forks;
 	sem_t				*someone_died;
 }				t_hub;

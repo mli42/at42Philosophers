@@ -24,7 +24,7 @@ static void		destroy_sem(sem_t *sem)
 void			ft_destructor(t_philo **philos)
 {
 	destroy_sem(g_hub.forks);
-	destroy_sem(g_hub.stoplock);
+	destroy_sem(g_hub.mealstop);
 	destroy_sem(g_semstop);
 	destroy_sem(g_hub.someone_died);
 	if (philos && *philos)
