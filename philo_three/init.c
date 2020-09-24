@@ -6,13 +6,14 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:11:33 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 15:28:40 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/24 16:49:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
 extern t_hub	g_hub;
+extern sem_t	*g_semstop;
 
 /*
 ** Fills the t_phinfo structure
@@ -41,9 +42,29 @@ static void	ft_philoinit(t_philo *philos, int const nbphilo)
 		philos[i].index = i + 1;
 }
 
+static int	init_one_sem(sem_t **sem, const char *const name, int init)
+{
+	sem_unlink(name);
+	if ((*sem = sem_open(name, IPC_CREAT, 0660, init)) == SEM_FAILED)
+		return (0);
+	return (1);
+}
+
+static int	init_sems(t_philo **philos)
+{
+	if (!init_one_sem(&g_hub.forks, FORK_SEM, g_hub.phinfo.nbphilo))
+		return (ft_exit(philos, "Cannot create semaphore (forks)"));
+	if (!init_one_sem(&g_hub.stoplock, PH_STOP_SEM, 1))
+		return (ft_exit(philos, "Cannot create semaphore (stoplock)"));
+	if (!init_one_sem(&g_semstop, PH_SEMSTOP, 0))
+		return (ft_exit(philos, "Cannot create semaphore (semstop)"));
+	if (!init_one_sem(&g_hub.someone_died, "ph_someone_died", 1))
+		return (ft_exit(philos, "Cannot create semaphore (someone_died)"));
+	return (1);
+}
+
 int			ft_initialization(t_philo **philos, char **argv)
 {
-	memset(&g_hub, 0, sizeof(g_hub));
 	if (!ft_parser(&g_hub.phinfo, argv))
 		return (ft_exit(NULL, "At least one parameter is not natural integer"));
 	if (g_hub.phinfo.nbphilo == 1)
@@ -51,14 +72,8 @@ int			ft_initialization(t_philo **philos, char **argv)
 	if (!(*philos = ft_memalloc(sizeof(t_philo) * g_hub.phinfo.nbphilo)))
 		return (ft_exit(NULL, "Cannot allocate memory"));
 	ft_philoinit(*philos, g_hub.phinfo.nbphilo);
-	sem_unlink(FORK_SEM);
-	if ((g_hub.forks = sem_open(FORK_SEM, IPC_CREAT, \
-					0660, g_hub.phinfo.nbphilo)) == SEM_FAILED)
-		return (ft_exit(philos, "Cannot create semaphore (forks)"));
-	sem_unlink(PH_STOP_SEM);
-	if ((g_hub.stoplock = sem_open(PH_STOP_SEM, IPC_CREAT, \
-					0660, 1)) == SEM_FAILED)
-		return (ft_exit(philos, "Cannot create semaphore (stoplock)"));
+	if (!init_sems(philos))
+		return (0);
 	if ((g_hub.start_time = ft_gettime()) == 0)
 		return (ft_exit(philos, "Cannot get time"));
 	return (1);

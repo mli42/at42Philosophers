@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:34:03 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 14:06:22 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/24 16:07:05 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,33 @@ static void	ft_must_eat(t_philo *philo, const int must_eat)
 		incstop();
 }
 
+static void	*supervisord(void *arg)
+{
+	const t_philo			*philo = (t_philo *)arg;
+	const unsigned long int	time_to_die = g_hub.phinfo.time_to[e_DIE];
+
+	while (1)
+	{
+		if (philo->last_meal != 0 &&
+				ft_gettime() - philo->last_meal > time_to_die)
+		{
+			ft_logs(ft_gettime() - g_hub.start_time, philo->index, e_DYING);
+			setstop();
+			break ;
+		}
+		usleep(1000);
+	}
+	return (NULL);
+}
+
 void		*ft_philo(void *arg)
 {
 	t_philo		*philo;
+	pthread_t	thread;
 	const int	must_eat = g_hub.phinfo.must_eat;
 
 	philo = (t_philo *)arg;
+	pthread_create(&thread, NULL, supervisord, philo);
 	while (!getstop())
 	{
 		lockforks(philo);
