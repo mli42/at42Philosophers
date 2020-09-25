@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 11:16:50 by mli               #+#    #+#             */
-/*   Updated: 2020/09/25 00:36:40 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/25 11:26:43 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,10 @@ void		incstop(void)
 
 void		setstop(void)
 {
+	int i;
+
+	i = -1;
 	sem_post(g_semstop);
+	while (++i < g_hub.phinfo.nbphilo)
+		sem_post(g_hub.mealstop);
 }

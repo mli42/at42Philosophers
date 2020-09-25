@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:27:27 by mli               #+#    #+#             */
-/*   Updated: 2020/09/25 00:34:52 by mli              ###   ########.fr       */
+/*   Updated: 2020/09/25 12:32:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	*philo_ate_enough(void *arg)
 {
 	int i;
 
-	i = g_hub.phinfo.must_eat;
-	while (--i)
+	i = g_hub.phinfo.nbphilo;
+	while (i--)
 		sem_wait(g_hub.mealstop);
 	setstop();
 	return (arg);
