@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/23 17:05:48 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 23:12:24 by mli              ###   ########.fr       */
+/*   Updated: 2020/10/09 14:14:04 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# include <fcntl.h>
 # include <semaphore.h>
 # include <sys/sem.h>
 
