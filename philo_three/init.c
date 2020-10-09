@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:11:33 by mli               #+#    #+#             */
-/*   Updated: 2020/09/24 23:12:56 by mli              ###   ########.fr       */
+/*   Updated: 2020/10/09 12:18:07 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	ft_philoinit(t_philo *philos, int const nbphilo)
 static int	init_one_sem(sem_t **sem, const char *const name, int init)
 {
 	sem_unlink(name);
-	if ((*sem = sem_open(name, IPC_CREAT, 0660, init)) == SEM_FAILED)
+	if ((*sem = sem_open(name, IPC_CREAT, 644, init)) == SEM_FAILED)
 		return (0);
 	return (1);
 }

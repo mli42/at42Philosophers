@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:11:33 by mli               #+#    #+#             */
-/*   Updated: 2020/09/23 15:28:40 by mli              ###   ########.fr       */
+/*   Updated: 2020/10/09 12:17:05 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ static void	ft_philoinit(t_philo *philos, int const nbphilo)
 		philos[i].index = i + 1;
 }
 
+static int	init_one_sem(sem_t **sem, const char *const name, const int init)
+{
+	sem_unlink(name);
+	if ((*sem = sem_open(name, IPC_CREAT, 644, init)) == SEM_FAILED)
+		return (0);
+	return (1);
+}
+
 int			ft_initialization(t_philo **philos, char **argv)
 {
 	memset(&g_hub, 0, sizeof(g_hub));
@@ -51,13 +59,9 @@ int			ft_initialization(t_philo **philos, char **argv)
 	if (!(*philos = ft_memalloc(sizeof(t_philo) * g_hub.phinfo.nbphilo)))
 		return (ft_exit(NULL, "Cannot allocate memory"));
 	ft_philoinit(*philos, g_hub.phinfo.nbphilo);
-	sem_unlink(FORK_SEM);
-	if ((g_hub.forks = sem_open(FORK_SEM, IPC_CREAT, \
-					0660, g_hub.phinfo.nbphilo)) == SEM_FAILED)
+	if (!init_one_sem(&g_hub.forks, FORK_SEM, g_hub.phinfo.nbphilo))
 		return (ft_exit(philos, "Cannot create semaphore (forks)"));
-	sem_unlink(PH_STOP_SEM);
-	if ((g_hub.stoplock = sem_open(PH_STOP_SEM, IPC_CREAT, \
-					0660, 1)) == SEM_FAILED)
+	if (!init_one_sem(&g_hub.stoplock, PH_STOP_SEM, 1))
 		return (ft_exit(philos, "Cannot create semaphore (stoplock)"));
 	if ((g_hub.start_time = ft_gettime()) == 0)
 		return (ft_exit(philos, "Cannot get time"));
